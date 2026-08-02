@@ -64,3 +64,11 @@ async function carregarGrade() {
 // --- iniciar ---
 buscarPokemon("pikachu");
 carregarGrade();
+// --- clicar num card da grade mostra ele em cima ---
+document.getElementById("grade").addEventListener("click", (e) => {
+  const card = e.target.closest(".mini-card");
+  if (!card) return;
+  const nome = card.dataset.nome;
+  buscarPokemon(nome);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
