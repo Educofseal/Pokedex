@@ -1,0 +1,91 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0B0C10;
+  color: #ECEAE6;
+  font-family: system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+h1 {
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.busca {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+}
+
+#campoBusca {
+  flex: 1;
+  background: #13161D;
+  border: 1px solid #2D3440;
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #ECEAE6;
+  font-size: 1rem;
+}
+
+#campoBusca:focus {
+  outline: none;
+  border-color: #7C8CFF;
+  box-shadow: 0 0 0 3px rgba(124, 140, 255, 0.15);
+}
+
+#botaoBusca {
+  background: #7C8CFF;
+  color: #0B0C10;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+#botaoBusca:hover { filter: brightness(1.1); }
+
+.card {
+  background: #13161D;
+  border: 1px solid #222732;
+  border-radius: 16px;
+  padding: 28px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.card img {
+  width: 160px;
+  height: 160px;
+  image-rendering: pixelated;      /* deixa o sprite nítido, sem borrar */
+}
+
+.card h2 {
+  text-transform: capitalize;      /* "pikachu" -> "Pikachu" */
+  font-size: 1.5rem;
+}
+
+.card p {
+  color: #9DA3AE;
+  text-transform: capitalize;
+}
+
+.erro {
+  color: #e08181;
+  background: #13161D;
+  border: 1px solid #2D3440;
+  border-radius: 10px;
+  padding: 16px 24px;
+}
