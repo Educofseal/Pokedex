@@ -89,3 +89,37 @@ h1 {
   border-radius: 10px;
   padding: 16px 24px;
 }
+.titulo-grade {
+  font-size: 1.2rem;
+  color: #9DA3AE;
+  font-weight: 600;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.mini-card {
+  background: #13161D;
+  border: 1px solid #222732;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.mini-card:hover {
+  transform: translateY(-3px);
+  border-color: #7C8CFF;
+}
+
+.mini-card img { width: 72px; height: 72px; image-rendering: pixelated; }
+.mini-card .num { color: #6F7782; font-size: 0.75rem; font-family: monospace; }
+.mini-card .nome { text-transform: capitalize; font-size: 0.85rem; }
