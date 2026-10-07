@@ -8,7 +8,11 @@ async function buscarPokemon(nome) {
     const dados = await resposta.json();
     mostrarPokemon(dados);
   } catch (erro) {
-    caixa.innerHTML = `<p class="erro">Não achei "${nome}". Confere o nome?</p>`;
+    // textContent em vez de innerHTML: o que a pessoa digitou nunca vira HTML
+    const aviso = document.createElement("p");
+    aviso.className = "erro";
+    aviso.textContent = `Não achei "${nome}". Confere o nome?`;
+    caixa.replaceChildren(aviso);
   }
 }
 
