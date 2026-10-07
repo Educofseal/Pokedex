@@ -4,7 +4,7 @@
 
 `JavaScript` · `HTML` · `CSS` · `PokéAPI` · `sem frameworks`
 
-**Demo ao vivo:** _(cole o link do GitHub Pages aqui depois de publicar)_
+**Demo ao vivo:** https://educofseal.github.io/Pokedex/
 
 ---
 
