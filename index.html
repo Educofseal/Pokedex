@@ -2,22 +2,167 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Pokédex</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pokédex Kanto — Quem é esse Pokémon?</title>
+  <meta name="description" content="Você reconhece os 151 Pokémon de Kanto só pela silhueta? Jogue, descubra curiosidades e explore a Pokédex completa.">
+  <meta name="theme-color" content="#0B0C10">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Quem é esse Pokémon? — Pokédex Kanto">
+  <meta property="og:description" content="Só a silhueta. 4 opções. Quantas seguidas você acerta? Explore os 151 de Kanto com curiosidades que você não sabia.">
+  <meta property="og:url" content="https://educofseal.github.io/Pokedex/">
+  <meta property="og:image" content="https://educofseal.github.io/Pokedex/assets/preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Minha Pokédex</h1>
+  <a class="pular" href="#pokedex">Pular para a Pokédex</a>
 
-  <div class="busca">
-    <input type="text" id="campoBusca" placeholder="Digite um Pokémon (ex: charizard)">
-    <button id="botaoBusca">Buscar</button>
-  </div>
+  <header class="topo">
+    <a class="marca" href="#jogo" aria-label="Pokédex Kanto, início">
+      <img src="assets/favicon.svg" alt="" width="28" height="28">
+      <span>Pokédex <b>Kanto</b></span>
+    </a>
+    <nav class="menu" aria-label="Seções">
+      <a href="#jogo">Jogar</a>
+      <a href="#pokedex">Pokédex</a>
+      <a href="#como-funciona">Como funciona</a>
+    </nav>
+    <div class="progresso" title="Quantos Pokémon você já abriu">
+      <span class="progresso-texto"><b id="vistosNum">0</b>/151 vistos</span>
+      <span class="progresso-barra"><span id="vistosBarra"></span></span>
+    </div>
+  </header>
 
-  <div id="pokemon"></div>
+  <main>
+    <!-- 1. O gancho: o jogo vem primeiro -->
+    <section id="jogo" class="hero">
+      <div class="hero-texto">
+        <p class="selo">Desafio de 10 segundos</p>
+        <h1>Você reconhece os <span class="destaque">151</span> só pela sombra?</h1>
+        <p class="hero-sub">Uma silhueta, quatro opções. A maioria das pessoas trava antes da 5ª seguida. Qual é o seu limite?</p>
+        <dl class="placar" aria-live="polite">
+          <div><dt>Sequência</dt><dd id="placarSeq">0</dd></div>
+          <div><dt>Recorde</dt><dd id="placarRecorde">0</dd></div>
+          <div><dt>Acertos</dt><dd id="placarTaxa">—</dd></div>
+        </dl>
+      </div>
 
-  <h2 class="titulo-grade">Kanto — 151 Pokémon</h2>
-  <div id="grade" class="grade"></div>
+      <div class="jogo-card" id="jogoCard">
+        <div class="jogo-palco">
+          <div class="jogo-raios" aria-hidden="true"></div>
+          <img id="jogoImg" class="silhueta" alt="Silhueta de um Pokémon misterioso" width="260" height="260">
+          <p id="jogoResultado" class="jogo-resultado" aria-live="assertive"></p>
+        </div>
+        <div id="jogoOpcoes" class="jogo-opcoes"></div>
+        <div class="jogo-acoes">
+          <button id="jogoDica" class="btn btn-fantasma" type="button">Dica: mostrar o tipo</button>
+          <button id="jogoSom" class="btn btn-fantasma" type="button" aria-pressed="true">Som: ligado</button>
+        </div>
+        <div id="jogoDepois" class="jogo-depois" hidden>
+          <p id="jogoCuriosidade" class="curiosidade"></p>
+          <div class="jogo-depois-botoes">
+            <button id="jogoProximo" class="btn btn-primario" type="button">Próximo <kbd>Enter</kbd></button>
+            <button id="jogoFicha" class="btn" type="button">Ver ficha completa</button>
+            <button id="jogoDesafiar" class="btn" type="button">Desafiar um amigo</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- 2. Pokémon do dia: motivo para voltar amanhã -->
+    <section class="dia" aria-labelledby="diaTitulo">
+      <button id="diaCard" class="dia-card" type="button">
+        <img id="diaImg" alt="" width="120" height="120">
+        <span class="dia-texto">
+          <span class="selo" id="diaTitulo">Pokémon do dia · muda à meia-noite</span>
+          <strong id="diaNome"></strong>
+          <span id="diaFato" class="dia-fato"></span>
+        </span>
+        <span class="dia-seta" aria-hidden="true">→</span>
+      </button>
+    </section>
+
+    <!-- 3. A Pokédex -->
+    <section id="pokedex" class="pokedex" aria-labelledby="pokedexTitulo">
+      <div class="secao-cabeca">
+        <h2 id="pokedexTitulo">Os 151 de Kanto</h2>
+        <p>Toque em qualquer um para ver fraquezas, evoluções e curiosidades. Os que você já abriu ganham um <span class="check-mini">✓</span>.</p>
+      </div>
+
+      <div class="ferramentas">
+        <label class="busca">
+          <span class="sr">Buscar Pokémon</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="campoBusca" type="search" placeholder="Nome, número ou tipo (ex: fogo)" autocomplete="off">
+          <kbd>/</kbd>
+        </label>
+        <label class="ordem">
+          <span class="sr">Ordenar</span>
+          <select id="ordem">
+            <option value="id">Ordem da Pokédex</option>
+            <option value="nome">Nome (A–Z)</option>
+            <option value="poder">Mais fortes primeiro</option>
+            <option value="velocidade">Mais rápidos primeiro</option>
+            <option value="peso">Mais pesados primeiro</option>
+            <option value="naovistos">Não vistos primeiro</option>
+          </select>
+        </label>
+        <button id="surpresa" class="btn btn-primario" type="button">Surpreenda-me</button>
+      </div>
+
+      <div id="filtrosTipo" class="filtros" role="group" aria-label="Filtrar por tipo"></div>
+      <p id="contagem" class="contagem" aria-live="polite"></p>
+      <ul id="grade" class="grade"></ul>
+    </section>
+
+    <!-- 4. Explicação curta, para quem quer saber como foi feito -->
+    <section id="como-funciona" class="como" aria-labelledby="comoTitulo">
+      <div class="secao-cabeca">
+        <h2 id="comoTitulo">Como funciona por dentro</h2>
+        <p>Sem framework, sem login, sem build. Quatro ideias fazem tudo funcionar:</p>
+      </div>
+      <ol class="como-lista">
+        <li>
+          <h3>Dados prontos antes de você chegar</h3>
+          <p>Um script baixa os 151 da <a href="https://pokeapi.co" target="_blank" rel="noopener">PokéAPI</a> uma vez, no deploy, e salva tudo num único arquivo. Resultado: 1 requisição em vez de 450, e a página abre na hora.</p>
+        </li>
+        <li>
+          <h3>Fraquezas calculadas, não copiadas</h3>
+          <p>A tabela de tipos vem da API. Para cada Pokémon, o site multiplica as vantagens de cada tipo — é assim que ele descobre que Gelo dá 4× de dano no Dragonite.</p>
+        </li>
+        <li>
+          <h3>Curiosidades geradas pelos números</h3>
+          <p>"Mais rápido que 80% de Kanto" sai de comparar o atributo com os outros 150. Nenhuma frase foi escrita à mão para cada Pokémon.</p>
+        </li>
+        <li>
+          <h3>Seu progresso fica com você</h3>
+          <p>Recorde, sequência e Pokémon vistos ficam salvos no seu navegador. Cada ficha tem link próprio — dá para mandar <code>#/pikachu</code> para alguém.</p>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>Feito com JavaScript puro · dados da <a href="https://pokeapi.co" target="_blank" rel="noopener">PokéAPI</a> · <a href="https://github.com/Educofseal/Pokedex" target="_blank" rel="noopener">código no GitHub</a></p>
+    <p class="aviso">Projeto de fã, sem fins lucrativos. Pokémon e seus nomes são marcas da Nintendo, Game Freak e Creatures.</p>
+  </footer>
+
+  <!-- Ficha do Pokémon (abre por cima de tudo) -->
+  <dialog id="ficha" class="ficha" aria-labelledby="fichaNome">
+    <div class="ficha-corpo" id="fichaCorpo"></div>
+  </dialog>
+
+  <div id="avisos" class="avisos" aria-live="polite"></div>
+
+  <script src="data/pokedex.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
